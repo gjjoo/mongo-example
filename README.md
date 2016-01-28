@@ -1,7 +1,7 @@
 # MongoDB Code Sample
 
 ### Reference
-- [빅데이터란?](Resources/빅데이터란?.md)
+- [빅데이터란?](Resources/빅데이터란.md)
 - [NoSQL의 종류](Resources/NoSQL의 종류.md)
 - [NoSQL 데이터 모델의 특징](Resources/NoSQL 데이터 모델의 특징.md)
 - [MongoDB의 특징](Resources/MongoDB의 특징.md)
