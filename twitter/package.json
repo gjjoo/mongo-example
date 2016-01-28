@@ -1,0 +1,16 @@
+{
+  "name": "twitter",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gjjoo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongoose": "^4.2.4",
+    "node-twitter-api": "^1.6.1",
+    "oauth": "^0.9.14"
+  }
+}

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta charset="utf-8">
+  <title>채팅 클라이언트</title>
+  <script src="socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div id="content">
+    <h1>채팅방</h1>
+    <div class="chat_list">
+      <ul>
+      </ul>
+    </div>
+
+    <div class="chat_input">
+      <input type="text" id="chat_txt" value="대화글 입력">
+    </div>
+    <div class="chat_btn">
+      <a href="#">입력</a>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+  <script>
+    var socket = null;
+    $(function () {
+      // 소켓설정
+      socket = io.connect();
+
+      // 소켓 첫 접속 시
+      socket.on('socket_on', function (data) {
+        console.log(data);
+        $(data).each(function(){
+          var msg = this.msg;
+          msg = decodeURIComponent(msg);
+          msg = msg
+                  .replace(/&/g, '&amp;')
+                  .replace(/\"/g, '&quot;')
+                  .replace(/\'/g, '&#39;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;');
+          $('.chat_list ul').append('<li>'+msg+'</li>');
+        });
+      });
+
+      // 보낸 데이터 다시 받아서 처리
+      socket.on('message_go', function (data) {
+        console.log('message_go');
+        data = decodeURIComponent(data);
+        data = data
+                .replace(/&/g, '&amp;')
+                .replace(/\"/g, '&quot;')
+                .replace(/\'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        $('.chat_list ul').append('<li>'+data+'</li>');
+      });
+
+      // 채팅입력
+      $('.chat_input #chat_txt').on('click', function () {
+        $(this).val('');
+      });
+
+      // 채팅버튼
+      $('.chat_btn a').on('click', function () {
+        var chat_txt = $('#chat_txt').val();
+        var encodeMsg = encodeURIComponent(chat_txt);
+
+        socket.emit('message', '{"message": "'+ encodeMsg +'"}');
+      });
+    });
+  </script>
+</body>
+</html>
