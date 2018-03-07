@@ -2,7 +2,7 @@
 
 검색옵션
 
-```java
+```js
 db.scores.find(
   {},
   {
